@@ -1,0 +1,51 @@
+-> Problema de Custo Fixo e Custo Variável
+
+M5.4
+
+#Variaveis de decisão 
+
+	Xi = quantidade de furadeiras do tipo i for produzida 	-> i = 1...3
+	Yi = 1 se alguma furadeira do tpo i for produzida	-> i = 1...3
+   	   = 0 caso contrario
+
+#Função objetivo
+
+	max lucro = X1(50) + X2(60) + X3(65) - (Y1(500) + Y2(400) + Y3(300))
+
+#Restrições
+	(Prep i)	Xi <= Yi * MAX_INT	-> X1 == 0 : Y1 = 0 ? Y1 = 1
+	(Montagem)	2X1 + 3X2 + 2.5X3 <= 600
+	(Pintura)	3X1 + 2X2 + 2.5X3 <= 500
+	(NNV)		Xi >= 0 e inteiro 1,2,3
+			Yi {0,1} e 1,2,3
+
+-> Problema do Primal-Dual
+	notação dos teoremas => Z fo do Primal
+				D "  "  Dual
+				Z* otimo Primal
+				D* otimo Dual
+				Xi* ponto otimo Primal
+				Yi* ponto otimo Dual
+1. Se ambos tiverem soluções finitas viaveis entao Z <= D
+2. Z* = D*
+3. O valor otimo de Yi do Dual é igual ao coeficiente na linha da Fo otima do valores de folga do Primal
+
+
+Interpretação economica
+	Cj = $/lucro unidade produção
+	Aij = valor de recurso i/valor de produção j
+
+Para Dual Fluxos
+	Yi = $/Custo unidade recurso i
+	Yi = Valor implicito do recurso i,valido apenas p/ o problema
+	Yi*= taxa de variação de Z* se a quantidade do recurso i aumentar ou diminuir dentro de um limite
+
+Nomes para a variavel Yi
+	Variaveis duais
+	Shadow price
+	Valor implicito
+	Incremetal value
+	Internal price
+	Eficiency price
+
+

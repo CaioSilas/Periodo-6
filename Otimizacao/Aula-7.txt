@@ -1,0 +1,28 @@
+	Planejamento da produção com múltiplos períodos 
+
+M2.3
+
+1- Variaveis
+	T1:= quantidade de suco produzido no primeiro trimestre	
+	T2:= quantidade de suco produzido no segundo trimestre
+	T3:= quantidade de suco produzido no terceiro trimestre
+	T4:= quantidade de suco produzido no quarto trimestre
+	E1:= quantidade de suco em escotoque no final do primeiro trimestre
+	E2:= quantidade de suco em escotoque no final do segundo trimestre
+	E3:= quantidade de suco em escotoque no final do terceiro trimestre
+	E4:= quantidade de suco em escotoque no final do quarto trimestre
+
+
+2- Função objetivo
+	min Z := (300T1 + 350T2 + 420T3 + 380T4) - 45(E1 + E2 + E3 + E4)
+
+
+3-Restrições
+	(DemandaT1)				:= T1 + E0 >= 40  => E1 := 10 + X1 - 40
+	(DemandaT2)				:= T2 + E1 >= 60  => E2 := E1 + X2 - 60
+	(DemandaT3)				:= T3 + E2 >= 75  => E3 := E2 + X3 - 75
+	(DemandaT4)				:= T4 + E3 >= 25  => E4 := E3 + X4 - 25
+	(Produção maxima por trimestre) 	:= T1,T2,T3,T4 <= 55  //Ti <= 55 , i = 1,...,4
+	(Estoque inicial)			:= E1* = 10
+	(Estoque final)				:= E4 = 5
+	(integralidade,NNV)			:= Ei,Ti >= 0, e inteiro // i = 1,...,4

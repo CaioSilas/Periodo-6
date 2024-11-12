@@ -1,0 +1,11 @@
+{% load static %}
+<link href="{% static 'css/sidebar.css'%}" rel="stylesheet">
+<div class="sidebar">
+    <ul>
+        {% for section in sections %}
+            <li>
+                <a class="sec" href="{% url 'ct:section' section.name %}" style="display: block;">{{ section.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

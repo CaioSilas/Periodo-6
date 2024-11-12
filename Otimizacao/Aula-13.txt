@@ -1,0 +1,49 @@
+Programação da mão de obra
+	Crew/Staff
+
+Ônibus urbano:
+
+	Variaveis
+		Xi => números de ônibus que entra em cada turno, x = 1,...,6
+		
+	Função objetivo
+		Min z : Somatorio de Xi
+
+	Restrições
+		(Turno 1)    	x1 + x6 >= 4
+		(Turno 2)	x1 + x2 >= 10
+		(Turno 3)	x2 + x3 >= 8
+		(Turno 4)	x3 + x4 >= 7
+		(Turno 5)	x4 + x5 >= 12
+		(Turno 6)	x5 + x6 >= 4
+		(NNV)		Xi >= 0 e inteiro => Xi = 1,...,6
+
+Enfermeiros:
+	Variaveis
+		Xi => número de enfermeiros trabalhando no turno
+		Xei => numero de enfermeiros que iniciam no turno i e fazem horas extras
+
+	Função objetivo
+		Min Z : Somatorio de 1000 Xi + 600Xei
+	
+	Restrições
+		(Turno 1)	x1 + x6 + xe5 >= 7
+		(Turno 2)	x2 + x1 + xe6 >= 6
+		(Turno 3)	x3 + x2 + xe1 >= 8 
+		(Turno 4)	x4 + x3 + xe2 >= 18
+		(Turno 5)	x5 + x4 + xe3 >= 16
+		(Turno 6)	x6 + x5 + xe4 >= 20
+		(NNV)		xi,xei >= 0 e inteiros; xi,xei = 1,...,6
+
+
+Tripulação de ônibus urbano
+
+
+
+
+
+
+
+
+
+

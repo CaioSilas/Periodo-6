@@ -1,0 +1,338 @@
+% Created 2023-10-28 sáb 09:59
+% Intended LaTeX compiler: pdflatex
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage[table]{xcolor}
+\usepackage[margin=0.9in,bmargin=1.0in,tmargin=1.0in]{geometry}
+\usepackage{algorithm2e}
+\usepackage{algorithm}
+\usepackage{amsmath}
+\usepackage{arydshln}
+\usepackage{subcaption}
+\newcommand{\point}[1]{\noindent \textbf{#1}}
+\usepackage{hyperref}
+\usepackage{csquotes}
+\usepackage{graphicx}
+\usepackage{bm}
+\usepackage{proof, float}
+\usepackage{subfig}
+\usepackage[mla]{ellipsis}
+\parindent = 0em
+\setlength\parskip{.5\baselineskip}
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,automata,quotes}
+\usepackage[latin1]{inputenc}
+\usepackage{adjustbox}
+\author{Prof. Rodrigo Ribeiro}
+\date{28-10-2023}
+\title{Especificação da linguagem Lang\\\medskip
+\large Construção de Compiladores I}
+\hypersetup{
+ pdfauthor={Prof. Rodrigo Ribeiro},
+ pdftitle={Especificação da linguagem Lang},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 28.2 (Org mode 9.7)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\newcommand{\lang}{$lang$}
+\newcommand{\disciplina}{BCC328 - Construção de Compiladores I}
+\section*{1 - Introdução}
+\label{sec:orgea41eeb}
+
+Neste documento é apresentada a especificação da linguagem de programação que será usada na
+implementação dos trabalhos da disciplina \disciplina, denominada \emph{lang}.
+A linguagem \emph{lang} tem
+propósito meramente educacional, contendo construções que se assemelham a de várias linguagens
+conhecidas. No entanto, \emph{lang} não é um subconjunto de nenhuma delas. A descrição da linguagem é
+dividida entre os diversos aspectos da linguagem, a saber, léxico, sintático, sistema de tipos e
+semântico.
+
+É importante ressaltar que este documento serve como \textbf{referência} da linguagem e não constitui o
+enunciado dos trabalhos a serem desenvolvidos. O enunciado dos trabalhos envolverá subtarefas
+da implementação desta linguagem.
+\section*{2 - Estrutura sintática}
+\label{sec:org98c7b20}
+
+A Gramática 1 apresenta a gramática livre-de-contexto que descreve a sintaxe da linguagem
+\emph{lang}. Os meta-símbolos estão entre aspas simples, quando usados como tokens.
+As palavras reservadas estão em negrito e os demais tokens escritos com letras maiúsculas. A notação
+\texttt{[ E ]} denota que \texttt{E} é \textbf{opcional}, isto é, ou a gramática derivará o conteúdo entre
+chaves ou \(\lambda\). Por sua vez, a notação \texttt{\{ E \}} representa 0 ou mais ocorrências de \texttt{E}.
+
+Em linhas gerais, um programa nesta linguagem é constituído por um conjunto de definições que podem ser
+tipos de dados ou funções. A estrutura sintática da linguagem é dividida em:
+\emph{tipos de dados e declarações}, \emph{funções}, \emph{comandos} e \emph{expressões}.
+Cada uma dessas estruturas são detalhadas nas subseções subsequentes.
+
+\captionsetup[table]{name=Gramática}
+\begin{table}
+  \begin{tabular}{l@{\hspace{0.4cm}}c@{\hspace{0.4cm}}l}
+    prog & $\rightarrow$ & \{def\} \\
+    def  & $\to$ & data $|$ fun \\
+    data & $\rightarrow$ & {\bf data} ID `\{' \{decl\} `\}' \\
+    decl & $\rightarrow$ & ID `::' type `;' \\
+    func & $\rightarrow$ & ID `(' [params] `)' [`:' type (`,' type)*] `\{' \{cmd\} `\}'  \\
+    params & $\rightarrow$ & ID `::' type \{`,' ID `::' type\} \\
+    type & $\rightarrow$ & type `[' `]' \\
+         & $|$           &  btype\\
+    btype & $\rightarrow$ & {\bf Int} \\
+    & $|$ & {\bf Char} \\
+    & $|$ & {\bf Bool} \\
+    & $|$ & {\bf Float} \\
+    & $|$ & ID \\
+    cmd & $\rightarrow$ & `\{' \{cmd\} `\}' \\
+    & $|$ & {\bf if} `(' exp `)' cmd \\
+    & $|$ & {\bf if} `(' exp `)' cmd {\bf else} cmd \\
+    & $|$ & {\bf iterate} `(' exp `)' cmd \\
+    & $|$ & {\bf read} lvalue `;' \\
+    & $|$ & {\bf print} exp `;' \\
+    & $|$ & {\bf return} exp \{`,' exp\} `;' \\
+    & $|$ & lvalue {\bf =} exp `;' \\
+    & $|$ & ID {\bf =} exp `;'\\
+    & $|$ & ID `(' [exps]  `)' [`$<$' lvalue \{`,' lvalue\}  `$>$']  `;' \\
+    exp & $\rightarrow$ & exp \&\& exp \\
+        & $\mid$        & exp {\bf $<$} exp \\
+        & $\mid$        & exp {\bf ==} exp \\
+        & $\mid$        & exp {\bf !=} exp \\
+        & $\mid$        & exp {\bf +} exp \\
+        & $\mid$        & exp {\bf -} exp \\
+        & $\mid$        & exp {\bf *} exp \\
+        & $\mid$        & exp {\bf /} exp \\
+        & $\mid$        & exp {\bf \%} exp \\
+        & $\mid$        & ! exp \\
+        & $\mid$        & - exp \\
+        & $\mid$        & {\bf true} \\
+        & $\mid$        & {\bf false} \\
+        & $\mid$        & {\bf null} \\
+        & $\mid$        & INT \\
+        & $\mid$        & FLOAT \\
+        & $\mid$        & CHAR \\
+        & $\mid$        & lvalue \\
+        & $\mid$        & `(' exp `)' \\
+        & $\mid$        & {\bf new} type \{ `[' exp `]' \}  \\
+        & $\mid$        & ID `(' [exps] `)' `[' exp `]' \\
+    lvalue & $\rightarrow$ & ID \\
+           & $\mid$ & lvalue `[' exp `]' \\
+           & $\mid$ & lvalue {\bf .} ID \\
+    exps & $\rightarrow$ & exp \{ {\bf ,} exp \}
+  \end{tabular}
+  \caption{Sintaxe da linguagem \lang}
+  \label{fig:gram}
+\end{table}
+
+A seguir descrevemos alguns elementos da sintaxe de \emph{lang} utilizando exemplos.
+\subsection*{2.1 - Tipos de dados e declarações}
+\label{sec:org11f7b7b}
+
+Programas \emph{lang}  podem conter definições de tipos de dados registro, os quais são
+definidos usando a palavra-chave \textbf{data}. Após a palavra-chave \textbf{data}, segue o nome
+do novo tipo, o qual deve começar com uma letra maiúscula, e uma lista de declarações
+de variáveis delimitadas por chaves. Por exemplo, um tipo para representar um número
+racional pode ser definido como apresentado na Figura 1:
+
+\begin{figure}[H]
+\begin{verbatim}
+data Racional {
+   numerador :: Int;
+   denominador :: Int;
+}
+\end{verbatim}
+\caption{Exemplo de tipos de dados em Lang.}
+\end{figure}
+
+Esse tipo é denominado \emph{Racional} e contém dois atributos do tipo inteiro, um nomeado
+de \emph{numerador} e o outro de \emph{denominador}. A sintaxe para especificar os atributos de um
+tipo registro é a mesma usada para declarações de variáveis de funções, i.e., nome do
+atributo ou variável seguido por dois pontos, o tipo do atributo (variável) e finalizado
+com um ponto e vírgula.
+\subsection*{2.2 - Funções}
+\label{sec:org442a28c}
+
+A definição de funções e procedimentos é feita dando-se o nome da função (ou procedimento)
+e a sua lista de parâmetros, delimitados por parêntesis. Parâmetros são seguidos por dois
+pontos e os tipos de retorno, em caso de função. Note que uma função pode ter mais de um retorno,
+os quais são separados por vírgula. Para procedimentos, não há informação sobre retorno, visto
+que procedimentos não retornam valores. Por fim, segue o bloco de comandos. Um exemplo de programa
+na linguagem \emph{lang} é apresentado a seguir, o qual contém a definição de um
+procedimento denominado \emph{main} e as funções \emph{fat} e \emph{divmod}.
+A função \emph{fat} recebe um valor inteiro como parâmetro e tem como retorno o fatorial desse valor.
+A função \emph{divmod} é um exemplo de função com mais de um valor de retorno.
+Esta função recebe dois parâmetros inteiros e retorna o quociente e o resto da divisão do primeiro
+pelo segundo parâmetro.
+
+\begin{verbatim}
+main() {
+  print fat(10)[0];
+}
+
+fat(num :: Int) : Int {
+  if (num < 1)
+    return 1;
+  else
+    return num * fat(num-1)[0];
+}
+
+divmod(num :: Int, div :: Int) : Int, Int {
+  q = num / div;
+  r = num % div;
+  return q, r;
+}
+\end{verbatim}
+\subsection*{2.3 - Comandos}
+\label{sec:orgee8d526}
+
+A linguagem \emph{lang} apresenta apenas 8 comandos básico, classificados em comandos de atribuição,
+seleção, entrada e saída, retorno, iteração e chamada de funções e procedimentos.
+
+O comando de atribuição tem a mesma sintaxe das linguagens imperativas C/C++ e Java, na qual uma
+expressão do lado esquerdo especifica o endereço que será armazenado o valor resultante da avaliação
+da expressão do lado direito. A linguagem apresenta dois comados de seleção: um \emph{if-then} e \emph{if-then-else}.
+Leitura e escrita da entrada/saída padrão são realizadas usando os comandos \textbf{read} e \textbf{print},
+respectivamente. O comando \emph{read} é seguido por um endereço no qual será armazenado o valor lido da
+entrada padrão e o comando \emph{print} é seguido por uma expressão. Os valores de retorno de uma função são
+definidos por meio do comando \emph{return}, o qual é seguido por uma lista de expressões, separadas por vírgula.
+A linguagem \emph{lang} apresenta apenas um comando de iteração com a seguinte estrutura:
+
+\begin{verbatim}
+iterate (expr) cmd
+\end{verbatim}
+
+O comando \textbf{iterate} especifica um trecho de código que será executado por uma quantidade de vezes determinada
+pela avaliação da expressão delimitada entre parêntesis. Ressalta-se que a expressão é avaliada uma única vez e
+o laço só será executado se o valor resultante da avaliação da expressão for maior que zero.
+
+Chamadas de funções e procedimentos são comandos.
+A sintaxe para chamada de procedimento é o nome do procedimento seguido por uma lista de expressões separadas
+por vírgulas. Por exemplo, a chamada ao procedimento \emph{main} seria:
+
+\begin{verbatim}
+main();
+\end{verbatim}
+
+A chamada de função é similar, no entanto deve-se especificar uma lista de endereços para armazenar os valores de
+retorno da função, como a seguinte chamada à função \emph{divmod}:
+\begin{verbatim}
+divmod(5,2)<q, r>;
+\end{verbatim}
+
+Este comando define que os valores de retorno da função serão atribuídos as variáveis \emph{q} e \emph{r}.
+
+Por fim, um bloco de comandos é definido delimitando-se uma sequência de zero ou mais comandos por chaves.
+\subsection*{2.4 - Expressões}
+\label{sec:org29b2721}
+
+Expressões são abstrações sobre valores e, em \emph{lang}, são muito semelhantes as expressões aritméticas de outras
+linguagens, i.e., possuem os operadores aritméticos usuais (+,-,*,/,\%) além de operadores lógicos (\&\&, !), de
+comparação (\(<\),==,!=) e  valores (inteiros, caracteres, booleanos, floats, registros, vetores e chamadas de funções).
+Adicionalmente, parêntesis podem ser usados para determinar a \textbf{prioridade} de uma sub-expressão.
+
+Observe, no entanto, que o conjunto de operadores é reduzido. Por exemplo, operações com valores lógicos (tipo booleano)
+são realizadas com os operadores de conjunção (\&\&) e negação (!).
+A linguagem não provê operadores para as demais operações lógicas. Como consequência, se queremos realizar uma seleção
+quando o valor de ao menos uma de duas expressões, \(p\) e \(q\), resulta em verdadeira, escrevemos:
+
+\begin{verbatim}
+if(!(!p && !q)) { ... }
+\end{verbatim}
+
+As chamadas de funções são expressões. Porém, diferentemente das linguagens convencionais, usa-se um índice para determinar
+qual dos valores de retorno da função será usado. Assim, a expressão \(divmod(5,2)[0]\) se refere ao primeiro retorno,
+enquanto a expressão \(divmod(5,2)[1]\) ao segundo. Note que a indexação dos retornos da função é feita de maneira análoga ao
+acesso de vetores, no qual o primeiro retorno é indexado por 0, o segundo por 1 e assim sucessivamente.
+
+A expressão \(x*x+1 < fat(2*x)[0]\) contém operadores lógicos aritméticos e chamadas de funções.
+Porém, em qual ordem as operações devem ser realizadas?  Se seguirmos a convenção adotada pela aritmética, primeiramente deve
+ser resolvidas as \textbf{operações mais fortes} ou de \textbf{maior precedência}, i.e. a multiplicação e a divisão, seguida das
+\textbf{operações mais fracas} ou de \textbf{menor precedência}, i.e. a soma e subtração. Assim certos operadores tem prioridade em relação
+a outros operadores, i.e., devem ser resolvidos antes de outros.
+Para a expressão \(x*x+1\) é fácil ver que a expressão \(x*x\) deve ser resolvida primeiro e em seguida deve-se somar \(1\) ao resultado.
+E quando há operadores de tipos diferentes, como na expressão \(x*x+1 < fat(2*x)[0]\)?
+A situação é semelhante, resolve-se o que tem maior precedência, a qual é determinada pela linguagem.
+Neste exemplo, a última operação a ser realizada é a operação de comparação, cuja precedência é a menor dentre todos os
+operadores da expressão. A Tabela 1 apresenta a precedência dos operadores da linguagem \emph{lang}.
+O operador que tiver o maior valor da coluna \emph{nível} tem maior precedência.
+
+\setcounter{table}{0}
+\captionsetup[table]{name=Tabela}
+\begin{table}
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+  \hline \bf Nível & \bf Operador & \bf Descrição & \bf Associatividade \\
+  \hline & [ ] & acesso a vetores &  \\
+  7 &  . & acesso aos registros & esquerda \\
+  & ( ) & parêntesis &  \\
+  \hline   & & & \\
+         6 & ! & negação lógica & direita \\
+           & - & menos unário & \\
+  \hline  & * & multiplicação  &  \\
+        5 & / & divisão & esquerda \\
+          & \% & resto &  \\
+  \hline  & & & \\
+         4 & + & adição & \\
+           & - & subtração & esquerda \\
+  \hline 3 & $<$ & relacional & não é associativo \\
+  \hline   & & & \\
+         2 & $==$ & igualdade & esquerda \\
+           & $!=$ & diferença & \\
+  \hline 1 & \&\& & conjunção & esquerda \\
+  \hline
+\end{tabular}
+\caption{Tabela de associatividade e precedência dos operadores. Tem a maior precedência o operador de maior nível.}
+\label{tab:prece}
+\end{center}
+\end{table}
+
+Sabendo a precedência dos operadores podemos determinar em qual ordem as operações devem ser executadas quando há
+operadores com diferentes níveis de precedência. Entretanto, como determinar a ordem das operações se uma determinada
+expressão contém diferentes operadores com a mesma precedência, como nas expressões \(v[3].y[0]\) e \(x/3*y\)?
+
+Em situações como essas, determinamos a ordem de avaliação das operações a partir da associatividade dos operadores,
+que pode ser à esquerda ou à direita. Quando os operadores são associativos à esquerda, resolvemos a ordem das operações
+da esquerda para a direita. Caso os operadores sejam associativos à direita, fazemos o inverso.
+Em ambas as expressões \(v[3].y[0]\) e \(x/3*y\), os operadores são associativos à esquerda.
+Portanto, na primeira expressão, primeiro é realizado o acesso ao vetor \(v\), depois acesso ao membro \(y\) e, por fim,
+acesso ao vetor de \(y\). Na segunda expressão, realiza-se primeiro a divisão de \(x\) por 3 e, em seguida, a multiplicação
+do resultado por \(y\).
+\subsection*{2.5 - Estrutura léxica}
+\label{sec:orgcdb8a10}
+
+A linguagem usa o conjunto de caracteres da tabela \href{http://www.asciitable.com}{ASCII}. Cada uma das possíveis categorias léxicas da linguagem são
+descritas a seguir:
+
+\begin{itemize}
+\item Um \textbf{identificador} é uma sequência de letras, dígitos e sobrescritos (\emph{underscore}) que, obrigatoriamente,
+começa com uma letra minúsculas. Exemplos de identificadores: \emph{var}, \emph{var1} e \emph{fun10};
+\item Um \textbf{nome de tipo} é semelhante a regra de identificadores, porém a primeira letra é maiúscula;
+Exemplos de nomes de tipos: \emph{Racional} e \emph{Point};
+\item Um \textbf{literal inteiro} é uma sequência de um ou mais dígitos;
+\item Um \textbf{literal ponto flutuante} é uma sequência de zero ou mais digitos, seguido por um ponto e uma sequência
+de um ou mais digitos. Exemplos de literais ponto flutuante: 3.141526535, 1.0 e .12345;
+\item Um \textbf{literal caractere} é um único caractere delimitado por aspas simples.
+Os caracteres especiais quebra-de-linha, tabulação, \emph{backspace} e \emph{carriage return} são definidos usando os
+caracteres de escape \textbackslash n, \textbackslash t, \textbackslash b e \textbackslash r, respectivamente.
+Para especificar um caractere \textbackslash, é usado \textbackslash\textbackslash e para a aspas simples o
+\textbackslash'. Exemplos de literais caractere: 'a', '\textbackslash n', '\textbackslash t' e '\textbackslash\textbackslash';
+\item Um \textbf{literal lógico} é um dos valores \textbf{true} ou \textbf{false};
+\item O \textbf{literal nulo} é \textbf{null};
+\item Os símbolos usados para \textbf{operadores} e \textbf{separadores} são (, ), [, ], \{, \}, \(>\), ;, :, ::, ., ,, =, \(<\),
+\textbf{==}, \textbf{!=}, +, -, \textbf{*}, /, \%, \&\& e !.
+\end{itemize}
+
+Todos os nomes de tipos, comandos e literais são palavras reservadas pela linguagem.
+O comentário de uma linha começa com \texttt{-{}-{}} e se estende até a quebra de linha.
+A linguagem não suporta comentários com múltiplas linhas.
+\end{document}

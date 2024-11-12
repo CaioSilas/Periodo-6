@@ -1,0 +1,29 @@
+Bfs -> numero total de caminhos Somatorio B^i = B^k+1 - 1/B - 1
+	B^k + 2B^k-1 + 3B^k-2 + ... + KB => B^k(1 + 2B^-1 + 3B^-2...)
+					 => B^k(Somatorio ate o infinito iB^(1-i))
+					 => B^k(B/B-1)^2
+
+Lowest-cost first
+
+	* A fronteira e uma fila de prioridade 
+		** o custo define a fila de prioridade (quanto menor o custo maior a prioridade)
+			*** atualizar o vetor de visitados se o custo novo for menor que o antigo.
+
+Metodos de busca informados 
+	Função heurística 
+	f :: NÓ -> Nao negativo
+		Estimativa do custo do caminho de menor custo entre o nó n e o objetivo
+		h(n) precisa ser admssível
+			é uma heurística admissível se h(n) é sempre menor ou igual ao custo real do cominho de menor custo entre o nó n e o objetivo
+
+Heuristica depthfirst scarch
+	DFS deixando os com melhores em heuristica
+
+Greedy best-first scarch
+	fila de prioridade com heuristica
+
+A* C(<no,n1,...,nk>) + h(nk)
+
+Branch-and-bond
+	Busca em profundidade
+	C(<n0,n1,...,nk>) + h(nk) < **bound**

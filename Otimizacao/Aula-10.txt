@@ -1,0 +1,42 @@
+/M9.1
+
+Variaveis
+
+Xi = numero de projetos i => 1...5
+
+
+
+função objetivo
+
+max z(x) = 20x1 + 40x2 + 20x3 + 15x4 + 30x5
+
+
+restrições
+
+5x1 + 4x2 + 3x3 + 7x4 + 8x5 <= 25
+1x1 + 7x2 + 9x3 + 4x4 + 6x5 <= 25
+8x1 + 10x2 + 2x3 + 1x4 + 10x5 <= 25
+xi pertence {0,1}
+x2 + x3 <= 1
+x1 + x3 <= 2x5
+
+
+
+
+variaveis
+xi = numero de bobinas cortadas no padrao i, i => 1...6
+
+função objetivo
+min z := x1 + 0,5x4 + 0,5x5
+
+restrição
+5x1 + x2 + 2x6 	>= 	40
+x2 + 3x3 + x5 	>= 	35
+3x4 + x5 2x6 	>= 	20
+2x2 + x5 	>= 	15
+xi >= 0, e inteiro
+
+
+
+
+

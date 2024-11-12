@@ -1,0 +1,194 @@
+% Created 2023-10-28 sáb 10:04
+% Intended LaTeX compiler: pdflatex
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage[table]{xcolor}
+\usepackage[margin=0.9in,bmargin=1.0in,tmargin=1.0in]{geometry}
+\usepackage{algorithm2e}
+\usepackage{algorithm}
+\usepackage{amsmath}
+\usepackage{arydshln}
+\usepackage{subcaption}
+\newcommand{\point}[1]{\noindent \textbf{#1}}
+\usepackage{hyperref}
+\usepackage{csquotes}
+\usepackage{graphicx}
+\usepackage{bm}
+\usepackage{subfig}
+\usepackage[mla]{ellipsis}
+\parindent = 0em
+\setlength\parskip{.5\baselineskip}
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,automata,quotes}
+\usepackage[latin1]{inputenc}
+\usepackage{adjustbox,listings}
+\author{Prof. Rodrigo Ribeiro}
+\date{28-10-2023}
+\title{Trabalho prático 1 - Análise léxica.\\\medskip
+\large Construção de Compiladores I}
+\hypersetup{
+ pdfauthor={Prof. Rodrigo Ribeiro},
+ pdftitle={Trabalho prático 1 - Análise léxica.},
+ pdfkeywords={latex, org-mode, writing},
+ pdfsubject={my org-mode to latex templates},
+ pdfcreator={Emacs 28.2 (Org mode 9.7)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\section*{1. Instruções importantes}
+\label{sec:orgbb564ce}
+
+Nesta seção são apresentadas diversas informações relevantes
+referentes a entrega do trabalho e orientações a serem seguidas
+durante a implementação do mesmo.
+
+Leia atentamente antes de começá-lo.
+\subsection*{1.1. Equipe de desenvolvimento}
+\label{sec:orga686ec3}
+
+O trabalho será desenvolvido por grupos de até dois alunos.
+Não será permitido o trabalho ser realizado por três ou
+mais pessoas.
+\subsection*{1.2. Escolha da linguagem de programação}
+\label{sec:orgb81946b}
+
+O trabalho deverá ser desenvolvido na linguagem Haskell.
+No que diz respeito a implementação, todas as estruturas de
+dados referente a modelagem e desenvolvimento do trabalho
+deverão ser implementadas. Poderão ser usadas apenas
+bibliotecas de estruturas de dados elementares (listas,
+filas, pilhas, árvores, etc.), leitura de strings e arquivos ou
+ferramentas de uso geral, como o gerador de analisadores
+léxicos \href{https://haskell-alex.readthedocs.io/en/latest/}{Alex}.
+\subsection*{1.3. Artefatos a serem entregues}
+\label{sec:orge43983f}
+
+Os artefatos a serem entregues são:
+
+\begin{itemize}
+\item Código fonte do programa;
+\item Relatório do trabalho em formato pdf.
+\end{itemize}
+
+Antes de enviar seu trabalho para avaliação,
+assegure-se que:
+
+\begin{itemize}
+\item Seu código compila e executa em ambiente Unix / Linux.
+Programas que não compilam receberão nota zero;
+\item Todos os fontes a serem enviados têm, em comentário no
+início do arquivo, nome e matrícula do(s) autor(es) do
+trabalho;
+\item Arquivo do relatório tenha a identificação do(s)
+autor(es) do trabalho;
+\end{itemize}
+\subsection*{1.4. Critérios de avaliação}
+\label{sec:orgb8b699b}
+
+A avaliação será feita mediante análise do código fonte,
+relatório e estrutura de commits do repositório.
+Os seguintes fatores serão observados na avaliação do código
+fonte: corretude do programa, estrutura do código
+e legibilidade. A corretude se refere à implementação correta
+de todas as funcionalidades especificadas, i.e., se o programa
+desenvolvido está funcionando corretamente e não apresenta erros.
+Os demais fatores avaliados no código fonte são referentes a
+organização e escrita do trabalho.
+
+Nesse quesito, será observado:
+
+\begin{itemize}
+\item Estruturas de dados bem planejadas;
+
+\item Código modularizado em nível físico (separação em arquivos)
+e lógico (arquitetura bem definida);
+
+\item Legibilidade do código, i.e., nomes adequados de variáveis,
+funções e comentários úteis no código;
+\end{itemize}
+
+O relatório do código deve conter informações relevantes para
+compilar, executar e auxiliar no entendimento da estratégia adotada
+para resolução do problema e do código fonte.
+
+Ressalta-se que no relatório não deve conter cópias do fonte --
+afinal o seu fonte é um dos artefatos entregue --, porém trechos de
+códigos podem ser incluídos caso isso facilite a explicação e
+elucidação das estratégias utilizadas.
+
+O relatório deve apresentar as decisões de projetos tomadas:
+expressões regulares e autômatos para os tokens da linguagem,
+estruturas de dados usadas, estratégia de implementação do analisador
+léxico e detalhes de leitura da entrada, dentre outras informações.
+
+Tenha atenção ao prazo de entrega, pois não serão permitidas
+alterações nos repositórios após a data limite.
+\section*{2. Especificação técnica do trabalho}
+\label{sec:org7a67e82}
+
+Ao longo do semestre será construído um compilador para a linguagem lang.
+Assim, neste primeiro trabalho pede-se que seja implementado o analisador léxico
+desta linguagem.
+
+Deve-se implementar um programa de teste que usa o analisador léxico implementado.
+Tal programa irá receber como entrada um arquivo contendo um programa na linguagem e
+deverá imprimir, na saída padrão, a sequência de tokens produzido pelo
+analisador léxico, um token por linha.
+
+Por exemplo, para o programa da Figura 1 a saída será:
+\begin{lstlisting}
+ID:main
+(
+)
+{
+PRINT
+ID:fat
+(
+INT:10
+...
+\end{lstlisting}
+
+
+\begin{figure}
+\begin{lstlisting}[language=uL]
+main() {
+  print fat(10)[0];
+}
+
+fat(num :: Int) : Int {
+  if (num < 1)
+    return 1;
+  else
+    return num * fat(num-1)[0];
+}
+
+divmod(num :: Int, div :: Int) : Int, Int {
+  q = num / div;
+  r = num % div;
+  return q, r;
+}
+
+\end{lstlisting}
+\caption{Exemplos de funções e procedimentos  na linguagem lang.}
+\label{fig:prog}
+\end{figure}
+Espera-se que o programa produzido forneça uma interface de linha de comandos
+que receba o arquivo de entrada e produza mensagens de erro / ajuda de forma
+adequada.
+\section*{3. Entrega do Trabalho}
+\label{sec:org260cf3c}
+
+A data da entrega do trabalho será até o dia \textbf{12 de novembro de 2023}.
+\end{document}

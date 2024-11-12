@@ -1,0 +1,21 @@
+Fabricas atividade em sala valendo ponto
+
+1. Variaveis de decisão
+	Xij = Toneladas transportadas da fabrica i para o armazem j , i= A,B,C ; j = 1,....,5
+
+2. Função objetivo
+	Min Custo: 4Xa1 + Xa2 +  2Xa3 + 6Xa4 + 9Xa5 + .... + 5Xc1 + 2Xc2 + 6Xc3 + 4Xc4 + 8Xc5
+
+
+
+3. Restrições
+	(Fa) Xa1 + Xa2 + Xa3 + Xa4 + Xa5 <= 100
+	(Fb) Xb1 + Xb2 + Xb3 + Xb4 + Xb5 <= 120
+	(Fc) Xc1 + Xc2 + Xc3 + Xc4 + Xc5 <= 120
+	(A1) Xa1 + Xb1 + Xc1 >= 40
+	.
+	.
+	.
+	(A5) Xa5 + Xb5 + Xc5 >= 90
+	Xij >= 0, i = A,B,C; j =1...5
+

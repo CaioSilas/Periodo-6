@@ -1,0 +1,91 @@
+	M1.1 - Produção das Ligas Metálicas
+
+Variaveis de decisão
+Xa = quantidade de toneladas produzidas da liga A
+Xb = quantidade de toneladas produzidas da liga B
+
+
+Função objetivo:
+max receita = 30Xa + 50Xb  => 30 = $/Ton A //// => 50 = $/Ton B
+
+
+Restrição
+(cobre) 2Xa + 1Xb <= 15
+(zinco) 1Xa + 2Xb <= 11
+(chumbo) 1Xa + 3Xb <= 14
+(Não negatividade das variaveis) Xa,Xb >= 0
+
+
+M1.2 - Produção das Ligas Metálicas
+Considere agora que, devido a restrições contratuais, devem ser produzidas pelo menos 4 ton da liga A e 3 ton da liga B. 
+
+Variaveis de decisão
+Xa = quantidade de toneladas produzidas da liga A
+Xb = quantidade de toneladas produzidas da liga B
+
+
+Função objetivo:
+max receita = 30Xa + 50Xb  => 30 = $/Ton A //// => 50 = $/Ton B
+
+
+Restrição
+(cobre) 2Xa + 1Xb <= 15
+(zinco) 1Xa + 2Xb <= 11
+(chumbo) 1Xa + 3Xb <= 14
+(Não negatividade das variaveis) Xa,Xb >= 0
+(Max Xa) Xa >=4
+(Max Xb) Xb >=3
+
+
+
+Solução viável ou factível:
+X={X1,X2,...,,Xn} que satisfaz todas as restrições
+
+caso contrario => solução inviável
+	
+x = V.D
+c = V.Lucro (maximização)
+a = matriz parcum tecnico
+b = disp/ termio ind.
+F.D max receita = cx sujeito a (b.a)
+		  ax <= b
+
+
+Região de factibilidade : conjunto de todas as soluções viáveis
+
+Solução ótima X*: solução viavel com melhor valor para a função
+
+
+
+M 1.4 Uma empresa produz malas e mochilas.
+
+Variaveis de decisão:
+Xmala = quantidade de mala fabricada
+Xmoch = quantidade de mochila fabricada
+
+Função objetivo:
+max receita = 50Xmala + 40Xmoch
+
+Restrição:
+(Não negatividade das variaveis) Xmala,Xmoch >= 0
+(corte) 2Xmala + 1Xmoch <= 300
+(Tingimento) 1Xmala + 2,5Xmoch <= 540
+(costura) 2Xmala + 2Xmoxh <= 440
+(embalagem) 0,2Xmala + 0,5Xmoch <= 300
+(integralidade) Xmala,Xmoch inteiros
+
+AMPL = linguagem de programção matemática
+
+
+
+
+
+
+
+
+
+
+
+
+
+

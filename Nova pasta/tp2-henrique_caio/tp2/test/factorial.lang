@@ -1,0 +1,10 @@
+main() {
+  Int n = 0;
+  read n ;
+  Int fact = 1;
+  iterate (0 < n) {
+    fact = fact * n ;
+    n = n - 1 ;
+  }
+  print fact ;
+}

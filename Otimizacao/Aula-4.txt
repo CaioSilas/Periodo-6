@@ -1,0 +1,58 @@
+Pegar a interceção de todas as retas 
+**ver graficos no pdf da aula**
+
+R:-x + y <= 4
+	0 + y = 4  (0 , 4)
+	-x + 0 = 4 (-4, 0)
+
+S:x + y <= 6
+	0 + y = 6 (0 , 6)
+	x + 0 = 6 (6 , 0)
+
+U:x + y >= 1
+	0 + y = 1 (0 , 1)
+	x + 0 = 1 (1 , 0)
+
+F:2x + y <= 8
+	0 + y = 8 (0 , 8)
+	2x + 0 = 8(4 , 0)
+
+maximo da funçao: derivada parcial de x e y => 2x + 3y ==> Dz=(2,3)
+
+
+
+min Z = x + 2y
+
+A:-x + 3y <=9
+	0 + 3y = 9(0 , 3)
+	-x + 0 = 9(-9, 0)
+B: x - 2y <=1
+	0 - 2y = 1(0, -0.5)
+	x -  0 = 1(1 , 0)
+C:2x +  y <=10
+	0 + y = 10(0 , 10)
+	2x + 0 = 10(5 , 0)
+D:2x +  y >=5
+	0 + y = 5(0 , 5)
+	2x + 0= 5(2.5 , 0)
+
+
+derivada parcial Dz ==> (1,2)
+reta B e C
+
+ x - 2y = 1
+2x + y = 10 *2
+
+x - 2y = 1
+4x +2y = 10
+
+5x = 11
+x = 11/5
+
+5/11 - 2y = 1
+y = 5/11 / 2
+y = 5/22
+
+
+
+	

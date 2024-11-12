@@ -1,0 +1,37 @@
+M 2.1 - Alocação de recursos
+
+variaveis de desição:
+	Xs -> quantidade de soldados produzidos/semana
+	Xt -> quantidade de trem produzidos/semana
+
+Função objetivo:	
+	max lucro : 3Xs + 2Xt
+
+restrição:
+	(carpinteiro) 			-> 1Xs + 1Xt <= 80
+	(acabamento) 			-> 2Xs + 1Xt <= 100
+	(Nao negatividade das variaveis)-> Xs,Xt >= 0
+	(integralidade) 		-> Xs,Xt tem que ser inteiras
+	(Maximo trens)  		-> Xt <= 40
+
+M 2.2 - Alocação de recursos
+
+variaveis de desição:
+	Xs -> quantidade de soldados produzidos/semana
+	Xt -> quantidade de trem produzidos/semana
+
+Função objetivo:	
+	max lucro : 3Xs + 2Xt
+
+restrição:
+	(carpinteiro) 			-> 1Xs + 1Xt <= 80
+	(acabamento) 			-> 2Xs + 1Xt <= 100
+	(nao negatividade das variaveis)-> Xs,Xt >= 0
+	(integralidade) 		-> Xs,Xt tem que ser inteiras
+	(maximo trens)  		-> Xt <= 40
+	(kit 12/10)			-> Xs >= 4Xt /// Xs-4Xt >= 0
+
+
+
+
+

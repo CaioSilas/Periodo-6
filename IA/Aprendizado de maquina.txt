@@ -1,0 +1,32 @@
+/	Aprendizado de maquina
+-Tarefa
+-Dados
+-Métrica de Aprendizagem
+
+	Aprendizado supervisionado
+Dados:
+	Atributos de entrada x1,x2,x3...xn
+	Atributos alvo y1,y2,y3,...yk
+	Exemplos de treinamento(Xe,Ye) Xe = {X1(e),X2(e)....} Ye = {Y1(e),Y2(e)....}
+
+Tarefa:
+	Gerar um preditor, ou modelo M. recebe os atributos de dados de um exemplo e devolve as estimativas para aqueles dados do exemplo.
+	Regressão: 
+		Os atributos alvo são valores contínuos ex:humidade, temperatura,lat/log,área queimada
+	Classificação:
+		Os atributos alvo são valores discretos ex:autor,tamanho,thread,ação
+
+Avaliação:
+	Regressão:
+		Erro quadrado -> somatorio(Y(e)-Y(e))²
+		Erro absoluto -> somatorio|Y^(e)-Y(e)|
+		Raiz do erro quadrado -> raiz (Y^(e)-Y(e))²
+		Erro 0-1 -> 1 se Y^(e) diferente Y(e)
+			    0 se Y^(e) == Y(e)
+		Pior caso -> max |Y^(e) - Y(e)|
+	
+	Classificação:
+		(alvos discretos)
+		Previsão probabilística
+		Verossimilhança
+	

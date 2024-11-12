@@ -1,0 +1,3 @@
+min somatorio(Yi - Y^i)
+
+min somatorio(Yi - (Axi + b))²

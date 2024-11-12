@@ -1,0 +1,20 @@
+main(){
+    Int n = 0;
+    read n;
+    n = n + 1;
+
+    Int a = 0;
+    Int b = 1;
+    Int i = 2;
+    Int nextTerm = 0;
+
+    iterate(i < n){
+        nextTerm = a + b;
+        a = b;
+        b = nextTerm;
+
+        i = i + 1;
+    }
+
+    print nextTerm;
+}

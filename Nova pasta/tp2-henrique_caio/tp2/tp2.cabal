@@ -1,0 +1,60 @@
+cabal-version:      3.0
+
+name:               tp2
+version:            0.1.0.0
+license:            BSD-2-Clause
+license-file:       LICENSE
+author:             Rodrigo Ribeiro
+maintainer:         rodrigogribeiro@gmail.com
+category:           Language
+build-type:         Simple
+extra-doc-files:    CHANGELOG.md
+
+common warnings
+    ghc-options: -Wall
+
+library
+    import:           warnings
+
+    exposed-modules: 
+        Frontend.Lexer.LangLexer
+        Frontend.Parser.LangParser
+        Interpreter.LangInterpreter
+        Syntax.Syntax
+
+    build-depends:    base ^>=4.18.0.0,
+                      array,
+                      bytestring
+
+    hs-source-dirs:   src
+    ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+    default-language: Haskell2010
+
+executable tp2
+    import:           warnings
+
+    main-is:          Main.hs
+
+    build-depends:
+        base ^>=4.18.0.0,
+        tp2
+
+
+    hs-source-dirs:   app
+    ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+    default-language: Haskell2010
+
+test-suite tp2-test
+    import:           warnings
+
+    default-language: Haskell2010
+
+    type:             exitcode-stdio-1.0
+
+    hs-source-dirs:   test
+    ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+    main-is:          Main.hs
+
+    build-depends:
+        base ^>=4.18.0.0,
+        tp2

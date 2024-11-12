@@ -1,0 +1,75 @@
+CSP - Constraint satisfaction problens
+
+	*N-rainhas
+	*Coloração de grafos
+	*Palavras cruzadas
+	*Sudoku
+	*Configurações de produtos
+	*Alocação de recursos
+
+X{x,x2,...,xn} -> Variaveis
+D:{D1,D2,...Dn} -> Dominio que cada variavel pode assumir
+C:Conjunto de restrições
+
+	N-Rainhas
+X: Posição no tabuleiro n-rainhas
+D: {[0,1],[0,1],...}
+C: {numero de rainhas = n, rainhas na mesma linha = 0,reinhas na mesmo coluna = 0,uma rainha nao pode estar na diagonal da outra rainha}
+
+X:{x1,x2,...,xn}
+Xi = linha da rainha da coluna i
+
+D: {1,...,n}
+
+C:{xi diferente xj; para todo i diferente de j, |xi-xj| diferente |i-j|}
+
+
+coloração
+X:{vertices}
+D:{cores}
+C:{xi diferente de xi+1,xi-1, vertices adjacente devem ter cores diferentes}
+
+
+CSP - Como otmização
+	min conflitos -> # de restrições violadas
+
+X:{A,B,C,D}
+D:{1,2,3,4}
+C = {A > B, B > C}
+
+backtrack(sol=[],D,C){
+	if sol is solution:
+		return sol
+	else:
+		for v in D[sol]:
+			if C(sol,v):
+				atach(sol,v)
+				backtrack(sol + [v],D,C)
+				detach(sol,v)
+}
+
+Algoritmos de Consistencia - GAL(Generalized And Location)
+	Grafo
+	1. Um nó para cada variavel
+	2. Um nó para cada restrição
+	3. Um arco ligando cada restrição a cada variável do seu escopo
+	A{1,2,3,4}----------[A < B]----------B{1,2,3,4}----------[B < C]----------C{1,2,3,4}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

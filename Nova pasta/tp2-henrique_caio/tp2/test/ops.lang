@@ -1,0 +1,11 @@
+main(){
+Int n = 0;
+read n ;
+
+print n + 1.1;
+print n * 1.1;
+print n - 1.1;
+print n / 2;
+print n % 2;
+print -n;
+}
